@@ -29,7 +29,12 @@ export class Naxt {
     routing() {
 
         // root / アクセス時の処理 => /index
-        this._honoApp.get("/", (c) => c.html("Hello World"));
+        this._honoApp.get("/", (c) => {
+            const currentPath = "/index";
+            const renderTargetComponent = path_utils.SearchPath(currentPath, this._map["view"], this._map._404);
+            const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, this._headConfig);
+            return c.html(shareClientComponent);
+        });
 
         // /books/ の場合は /books/index | /booksは /books 
         // 先に画像等のファイルを検索 無かったら SearchPath で検索 そしてRenderServerSideJSX

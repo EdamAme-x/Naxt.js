@@ -3,7 +3,7 @@ import { initCSS } from "./initCSS.js";
 
 export function renderServerSideJSX(contextJSX, headJSX, config) {
     if (contextJSX === undefined) {
-        contextJSX = <>Undefined JSX</>;
+        contextJSX = <>Undefined</>;
     }
 
     if (config === undefined || !config) {
@@ -31,6 +31,8 @@ export function renderServerSideJSX(contextJSX, headJSX, config) {
     const ServerDataProps = {
         
     }
+    
+    // contextJSX.id_routing => [id]
 
 
     const renderString = `
@@ -49,7 +51,7 @@ export function renderServerSideJSX(contextJSX, headJSX, config) {
             </head>
             <body>
                 <div id="naxt">
-                    ${renderToString(contextJSX)}
+                    ${renderToString(contextJSX.jsx_component)}
                 </div>
 
                 <script type="text/json">
@@ -59,5 +61,6 @@ export function renderServerSideJSX(contextJSX, headJSX, config) {
             </body>
         </html>
     `
+
     return renderString; // <p>a</p>のjsx.Element を文字列に変換
 }

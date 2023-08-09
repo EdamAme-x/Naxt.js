@@ -1,6 +1,6 @@
 export const config = {
     heads: {
-        lang: "en",
+        lang: "ja",
         ogprefix: "og: https://ogp.me/ns#",
     },
     naxt: {
