@@ -4,16 +4,22 @@ import { env } from "./env.js"
 // ルーティング用
 import { path_utils } from "./utils/mods.js"
 
+// SSR用
+import { jsx_utils } from "./utils/mods.js"
+
+// Hydrate用
+
+
 export class Naxt {
     constructor(map, config) {
-        this.#map = map;
-        this.#config = config;
+        this._map = map;
+        this._config = config;
 
-        this.#port = config.naxt.port;
-        this.#headConfig = config.heads;
+        this._port = config.naxt.port;
+        this._headConfig = config.heads;
 
-        this.#honoApp = HonoApp; // new Hono
-        this.#serve = Serve;
+        this._honoApp = HonoApp; // new Hono
+        this._serve = Serve;
     }
 
     start() {
@@ -21,6 +27,15 @@ export class Naxt {
     }
 
     routing() {
-        this.#honoApp.get("/", (c) => c.html("hi!"));
+
+        // root / アクセス時の処理 => /index
+        this._honoApp.get("/", (c) => c.html("Hello World"));
+
+        // /books/ の場合は /books/index | /booksは /books
+        this._honoApp.get("/:id", (c) => c.html(c.req.param("id")));
+
+        this._serve(this._honoApp.fetch, {
+            port: this._port
+        });
     }
 }

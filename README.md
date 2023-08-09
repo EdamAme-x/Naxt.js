@@ -1,4 +1,4 @@
 # Naxt.js
 Component oriented
 
-国産フレームワーク
+国産フレームワークを目指す。
