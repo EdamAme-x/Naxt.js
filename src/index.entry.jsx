@@ -38,7 +38,16 @@ export class Naxt {
 
         // /books/ の場合は /books/index | /booksは /books 
         // 先に画像等のファイルを検索 無かったら SearchPath で検索 そしてRenderServerSideJSX
-        this._honoApp.get("/:id", (c) => c.html(c.req.param("id")));
+        this._honoApp.get("/:id", (c) => {
+            let currentPath = "/" + c.req.param("id");
+            if (c.req.param("id").slice(-1) === "/") {
+                currentPath = "/" + c.req.param("id") + "index";
+            }
+
+            const renderTargetComponent = path_utils.SearchPath(currentPath, this._map["view"], this._map._404);
+            const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, this._headConfig);
+            return c.html(shareClientComponent);
+        });
 
         env.startLog();
 

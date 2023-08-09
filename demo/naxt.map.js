@@ -9,14 +9,14 @@ import $$0 from "./api/getDateNow.js";
 
 const naxtMap = {
     "view": {
-        "/index": $0(),
-        "/id/[id]": $1(),
-        "/profile": $2()
+        "/index": $0,
+        "/id/[id]": $1,
+        "/profile": $2
     },
     "api": {
-        "/api/getDateNow": $$0()
+        "/api/getDateNow": $$0
     },
-    "_404": $3()
+    "_404": $3
 }
 
 

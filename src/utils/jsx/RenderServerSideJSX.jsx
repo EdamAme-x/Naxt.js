@@ -51,7 +51,7 @@ export function renderServerSideJSX(contextJSX, headJSX, config) {
             </head>
             <body>
                 <div id="naxt">
-                    ${renderToString(contextJSX.jsx_component)}
+                    ${renderToString(contextJSX.jsx_component())}
                 </div>
 
                 <script type="text/json">
