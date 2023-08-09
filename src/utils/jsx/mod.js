@@ -1,3 +1,3 @@
-import { renderServerSideJSX } from "./RenderServerSideJSX.js";
+import { renderServerSideJSX } from "./RenderServerSideJSX.jsx";
 
 export { renderServerSideJSX };
