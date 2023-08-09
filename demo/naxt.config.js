@@ -4,6 +4,7 @@ export const config = {
         ogprefix: "og: https://ogp.me/ns#",
     },
     naxt: {
-        port: 8080
+        port: 8080,
+        __dirname: import.meta.url
     }
 }

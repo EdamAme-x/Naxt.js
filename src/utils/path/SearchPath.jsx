@@ -1,7 +1,4 @@
 export function SearchPath(path, pathMap, _error404_jsx) {
-    if (path.slice(-1) === "/") {
-        path = path.slice(0, -1);
-    }
 
     const pathArray = path.split("/");
 
@@ -15,15 +12,12 @@ export function SearchPath(path, pathMap, _error404_jsx) {
     };
 
     for (const [value, jsxComponent] of Object.entries(pathMap)) {
-        if (value.slice(-1) === "/") {
-            value = value.slice(0, -1);
-        } // /~/~/
 
         const valueArray = value.split("/");
         let matched = true;
 
-        if (valueArray[valueArray.length - 1] === "") {
-            valueArray[valueArray.length - 1] = "index";
+        if (pathArray[pathArray.length - 1] === "") {
+            pathArray[pathArray.length - 1] = "index";
         }
 
         if (valueArray.length !== pathArray.length) {
