@@ -59,7 +59,7 @@ export class Naxt {
                 // /static/img.svg => /img.svg
                 let resolvedPath = currentPath.replace("/static", "");
                 return serveFile(c.rawRequest, decodeURIComponent((this.__dirname + "view/_static" + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
-            }
+            } // Static routes
 
             const renderTargetComponent = path_utils.SearchPath(currentPath, this._map["view"], this._map._404);
             const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, this._headConfig);
