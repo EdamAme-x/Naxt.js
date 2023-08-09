@@ -1,5 +1,6 @@
 export const env = {
     startLog: () => {
-        console.log("%c Naxt.js start-up!", "background: red;")
+        console.log("")
+        console.log("%c 🔥 Naxt.js start-up!  ", "background-color: #AA1515;")
     },
 }

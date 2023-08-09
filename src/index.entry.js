@@ -31,8 +31,11 @@ export class Naxt {
         // root / アクセス時の処理 => /index
         this._honoApp.get("/", (c) => c.html("Hello World"));
 
-        // /books/ の場合は /books/index | /booksは /books
+        // /books/ の場合は /books/index | /booksは /books 
+        // 先に画像等のファイルを検索 無かったら SearchPath で検索 そしてRenderServerSideJSX
         this._honoApp.get("/:id", (c) => c.html(c.req.param("id")));
+
+        env.startLog();
 
         this._serve(this._honoApp.fetch, {
             port: this._port
