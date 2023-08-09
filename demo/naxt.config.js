@@ -1,4 +1,9 @@
 export const config = {
-    lang: "en",
-    ogprefix: "og: https://ogp.me/ns#"
+    heads: {
+        lang: "en",
+        ogprefix: "og: https://ogp.me/ns#",
+    },
+    naxt: {
+        port: 8080
+    }
 }
