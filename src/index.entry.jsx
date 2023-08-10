@@ -25,7 +25,7 @@ export class Naxt {
         this._honoApp = HonoApp; // new Hono
         this._serve = Serve;
 
-        this._dir = config.naxt.path.replace("naxt.config.js", "");
+        this._dir = config.naxt.path.replace("/naxt.config.js", "");
     }
 
     start() {
