@@ -26,7 +26,7 @@ export class Naxt {
         this._serve = Serve;
 
         this._dir = config.naxt.path.replace("/naxt.config.js", "");
-        console.log(this._dir);
+        console.error(this._dir);
 
         if (this._dir.startsWith("src/")) {
             this._dir = "/" + this._dir;
