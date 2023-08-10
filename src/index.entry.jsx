@@ -87,6 +87,8 @@ export class Naxt {
                     try {
                         return serveFile(c.rawRequest, decodeURIComponent((this.__dirname + `view/${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
                     } catch (error) {
+                        console.log(import.meta.url);
+                        console.log(decodeURIComponent((this.__dirname + `view/${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
                         console.log("Not Static File" + error);
                     }
                 }
