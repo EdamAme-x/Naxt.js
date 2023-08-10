@@ -26,6 +26,10 @@ export class Naxt {
         this._serve = Serve;
 
         this._dir = config.naxt.path.replace("/naxt.config.js", "");
+
+        if (!this._dir.startsWith("C:")) {
+            this._dir = "\\" + this._dir;
+        }
     }
 
     start() {

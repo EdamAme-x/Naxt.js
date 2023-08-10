@@ -1,6 +1,6 @@
 {
     "tasks": {
-        "start": "deno run --allow-all --watch=view/,components/,api/, main.js"
+        "start": "deno run --allow-all --watch=view/,components/,api/, deploy_entry.js"
     },
     "imports": {
         "@/": "./",
