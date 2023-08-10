@@ -79,8 +79,8 @@ export class Naxt {
                     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
                     try {
                         let file_content;
-                        if (this._os.test("windows")) {
-                            file_content = Deno.readFileSync( decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("", "").replaceAll("/", "\\")));
+                        if (this._os === ("windows")) {
+                            file_content = Deno.readFileSync( decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replaceAll("/", "\\").replace("file:\\\\\\", "")));
                         }else {
                             file_content = Deno.readFileSync( decodeURIComponent((this._dir + `/view/${staticMaps[i]}` + resolvedPath).replace("", "").replaceAll("/", "/")));
                         }
