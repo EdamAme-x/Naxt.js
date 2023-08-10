@@ -7,7 +7,7 @@ export function renderServerSideJSX(contextJSX, headJSX, config, token) {
         contextJSX = <>Undefined</>;
     }
 
-    let configCopy = {...config};
+    const configCopy = {...config};
 
     let hotReloadScript = hotReload(token, configCopy);
 
