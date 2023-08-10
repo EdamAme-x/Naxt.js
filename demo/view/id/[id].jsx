@@ -1,6 +1,6 @@
 
 
-export default function id(props) {
+export default function Id() {
   return (
     <div>here is {/* PageProps.id */}</div>
   )

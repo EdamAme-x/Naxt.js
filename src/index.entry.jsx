@@ -42,11 +42,24 @@ export class Naxt {
 
     routing() {
 
+        const hotReloadToken = Date.now();
+
         // root / アクセス時の処理 => /index
         this._honoApp.get("/", (c) => {
             const currentPath = "/index";
+
+            let alive_check_token = ""; // ホットリロード
+
+            if (this._config.naxt.dev) {
+                alive_check_token = hotReloadToken; // 再起動の度に変更
+
+                if (currentPath === "/_alive_check") {
+                    return c.text(alive_check_token);
+                }
+            }
+
             const renderTargetComponent = path_utils.SearchPath(currentPath, this._map["view"], this._map._404);
-            const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, this._headConfig);
+            const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, !1, this._config, alive_check_token);
             return c.html(shareClientComponent);
         });
 
@@ -55,14 +68,28 @@ export class Naxt {
         this._honoApp.get("/*", (c) => {
             const currentPath = c._path;
 
-            if (currentPath.startsWith("/static")) {
-                // /static/img.svg => /img.svg
-                let resolvedPath = currentPath.replace("/static", "");
-                return serveFile(c.rawRequest, decodeURIComponent((this.__dirname + "view/_static" + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
-            } // Static routes
+            let alive_check_token = ""; // ホットリロード
+
+            if (this._config.naxt.dev) {
+                alive_check_token = hotReloadToken; // 再起動の度に変更
+
+                if (currentPath === "/_alive_check") {
+                    return c.text(alive_check_token);
+                }
+            }
+
+            const staticMaps = this._map["static"];
+
+            for (let i = 0; i < staticMaps.length; i++) {
+                if (currentPath.startsWith(`/${staticMaps[i]}`)) {
+                    // /static/img.svg => /img.svg
+                    const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
+                    return serveFile(c.rawRequest, decodeURIComponent((this.__dirname + `view/${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
+                }
+            } // static rootに指定された物
 
             const renderTargetComponent = path_utils.SearchPath(currentPath, this._map["view"], this._map._404);
-            const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, this._headConfig);
+            const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, !1, this._config, alive_check_token);
             return c.html(shareClientComponent);
         });
 

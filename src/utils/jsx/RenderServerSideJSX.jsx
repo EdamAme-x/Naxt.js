@@ -1,16 +1,28 @@
 import { renderToString } from "https://esm.sh/*preact-render-to-string@6.2.0";
 import { initCSS } from "./initCSS.js";
+import { hotReload } from "./hotReload.js";
 
-export function renderServerSideJSX(contextJSX, headJSX, config) {
+export function renderServerSideJSX(contextJSX, headJSX, config, token) {
     if (contextJSX === undefined) {
         contextJSX = <>Undefined</>;
     }
 
-    if (config === undefined || !config) {
+    let configCopy = {...config};
+
+    let hotReloadScript = hotReload(token, configCopy);
+
+    config = config.heads; // headsに変換
+
+    if (config === undefined) {
         config = {
             lang: "en",
-            ogprefix: "og: https://ogp.me/ns#"
+            ogprefix: encodeURIComponent("og: https://ogp.me/ns#")
         };
+    }else {
+        config = {
+            lang: config.lang,
+            ogprefix: encodeURIComponent(config.ogprefix)
+        }
     }
 
     if (!headJSX) {
@@ -38,12 +50,12 @@ export function renderServerSideJSX(contextJSX, headJSX, config) {
     const renderString = `
         <!DOCTYPE html>
         <html lang="${config.lang}">
-            <head prefix=${config.ogprefix}>
+            <head prefix="${decodeURIComponent(config.ogprefix)}">
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta charset="utf-8" />
+                <link rel="shortcut icon" href="/static/favicon.ico" />
                 ${renderToString(headJSX)}
 
-                <link rel="shortcut icon" href="/static/favicon.ico" />
                 <link rel="stylesheet" href="/static/global.css" />
 
                 <meta name="render-scripts" content="naxtjs"/>
@@ -57,7 +69,7 @@ export function renderServerSideJSX(contextJSX, headJSX, config) {
                 <script type="text/json">
                     ${JSON.stringify(ServerDataProps)}
                 </script>
-
+                ${hotReloadScript}
             </body>
         </html>
     `

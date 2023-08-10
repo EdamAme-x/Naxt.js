@@ -5,6 +5,7 @@ export const config = {
     },
     naxt: {
         port: 8080,
-        __dirname: import.meta.url
+        __dirname: import.meta.url,
+        dev: true
     }
 }
