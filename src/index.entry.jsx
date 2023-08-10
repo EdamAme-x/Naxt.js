@@ -84,7 +84,11 @@ export class Naxt {
                 if (currentPath.startsWith(`/${staticMaps[i]}`)) {
                     // /static/img.svg => /img.svg
                     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
-                    return serveFile(c.rawRequest, decodeURIComponent((this.__dirname + `view/${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
+                    try {
+                        return serveFile(c.rawRequest, decodeURIComponent((this.__dirname + `view/${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
+                    } catch (error) {
+                        console.log("Not Static File" + error);
+                    }
                 }
             } // static rootに指定された物
 
