@@ -81,8 +81,7 @@ export class Naxt {
                     // /static/img.svg => /img.svg
                     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
                     try {
-                        console.log(this._dir)
-                        return serveFile(c.rawRequest, decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
+                        return serveFile(c.rawRequest, decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("", "").replaceAll("/", "\\")));
                     } catch (error) {
                         console.log("Not Static File \n" + error);
                     }
