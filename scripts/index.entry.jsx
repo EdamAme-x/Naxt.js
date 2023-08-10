@@ -26,11 +26,10 @@ export class Naxt {
         this._serve = Serve;
 
         this._dir = config.naxt.path.replace("/naxt.config.js", "");
-        console.error(this._dir);
 
-        if (this._dir.startsWith("src/")) {
-            this._dir = "/" + this._dir;
-        }
+        // if (this._dir.startsWith("src/")) {
+        //     this._dir = "/" + this._dir;
+        // }
     }
 
     start() {
@@ -82,9 +81,10 @@ export class Naxt {
                     // /static/img.svg => /img.svg
                     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
                     try {
+                        console.log(this._dir)
                         return serveFile(c.rawRequest, decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
                     } catch (error) {
-                        console.log("Not Static File" + error);
+                        console.log("Not Static File \n" + error);
                     }
                 }
             } // static rootに指定された物
