@@ -27,8 +27,8 @@ export class Naxt {
 
         this._dir = config.naxt.path.replace("/naxt.config.js", "");
 
-        if (this._dir.startsWith("src\\")) {
-            this._dir = "\\" + this._dir;
+        if (this._dir.startsWith("src/")) {
+            this._dir = "/" + this._dir;
         }
     }
 
