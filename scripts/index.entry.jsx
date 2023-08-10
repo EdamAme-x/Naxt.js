@@ -27,9 +27,6 @@ export class Naxt {
 
         this._dir = config.naxt.path.replace("/naxt.config.js", "");
 
-        // if (this._dir.startsWith("src/")) {
-        //     this._dir = "/" + this._dir;
-        // }
     }
 
     start() {
@@ -81,12 +78,13 @@ export class Naxt {
                     // /static/img.svg => /img.svg
                     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
                     try {
-                        return serveFile(c.rawRequest, decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
+                        let file_content = Deno.readFileSync(decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
+                        return c.html(file_content);
                     } catch (error) {
                         console.log("Not Static File \n" + error);
                     }
                 }
-            } // static rootに指定された物
+            } // static files
 
             const renderTargetComponent = path_utils.SearchPath(currentPath, this._map["view"], this._map._404);
             const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, !1, this._config, alive_check_token);
