@@ -26,7 +26,7 @@ export class Naxt {
         this._serve = Serve;
 
         this._dir = config.naxt.path.replace("/naxt.config.js", "");
-
+        this._os = Deno.build.os;
     }
 
     start() {
@@ -78,7 +78,13 @@ export class Naxt {
                     // /static/img.svg => /img.svg
                     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
                     try {
-                        let file_content = Deno.readFileSync( decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("", "").replaceAll("/", "/")));
+                        let file_content;
+                        if (os.test("windows")) {
+                            file_content = Deno.readFileSync( decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("", "").replaceAll("/", "\\")));
+                        }else {
+                            file_content = Deno.readFileSync( decodeURIComponent((this._dir + `/view/${staticMaps[i]}` + resolvedPath).replace("", "").replaceAll("/", "/")));
+                        }
+                        
                         return c.html(file_content);
                     } catch (error) {
                         console.log("Not Static File \n" + error);
