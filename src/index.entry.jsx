@@ -24,6 +24,8 @@ export class Naxt {
 
         this._honoApp = HonoApp; // new Hono
         this._serve = Serve;
+
+        this._dir = config.naxt.path.replace("naxt.config.js", "");
     }
 
     start() {
@@ -75,7 +77,7 @@ export class Naxt {
                     // /static/img.svg => /img.svg
                     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
                     try {
-                        return serveFile(c.rawRequest, decodeURIComponent((Deno.cwd() + `${this._config.naxt.path}\\view\\${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
+                        return serveFile(c.rawRequest, decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
                     } catch (error) {
                         console.log("Not Static File" + error);
                     }

@@ -6,6 +6,6 @@ export const config = {
     naxt: {
         port: 8080,
         dev: true,
-        path: "/demo" // ルートだったら空白
+        path: import.meta.url
     }
 }
