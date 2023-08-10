@@ -5,6 +5,7 @@ import { env } from "./env.js"
 import { path_utils } from "./utils/mods.js"
 import { serveFile } from 'https://deno.land/x/std@0.140.0/http/file_server.ts'
 
+
 // SSR用
 import { jsx_utils } from "./utils/mods.js"
 
@@ -18,17 +19,6 @@ export class Naxt {
         this._config = config;
 
         this._port = config.naxt.port;
-
-        let _dirname = config.naxt.__dirname.split("/");
-        this.__dirname = "";
-        for (let h = 0; h < _dirname.length; h++) {
-            if (_dirname.length - 1 === h) {
-                break;
-            }
-            this.__dirname += "/" + _dirname[h];
-        }
-
-        this.__dirname = this.__dirname.substring(1, this.__dirname.length) + "/";
 
         this._headConfig = config.heads;
 
@@ -85,10 +75,8 @@ export class Naxt {
                     // /static/img.svg => /img.svg
                     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
                     try {
-                        return serveFile(c.rawRequest, decodeURIComponent((this.__dirname + `view/${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
+                        return serveFile(c.rawRequest, decodeURIComponent((Deno.cwd() + `\\view\\${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
                     } catch (error) {
-                        console.log(import.meta.url);
-                        console.log(decodeURIComponent((this.__dirname + `view/${staticMaps[i]}` + resolvedPath).replace("file:///", "").replaceAll("/", "\\")));
                         console.log("Not Static File" + error);
                     }
                 }
