@@ -84,8 +84,8 @@ export class Naxt {
                         }else {
                             file_content = Deno.readFileSync( new URL(decodeURIComponent((this._dir + `/view/${staticMaps[i]}` + resolvedPath).replace("file:///", "file:///").replaceAll("/", "/"))));
                         }
-                        
-                        return c.html(file_content);
+
+                        return c.body(file_content);
                     } catch (error) {
                         console.log("Not Static File \n" + error);
                     }
