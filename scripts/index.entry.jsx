@@ -82,7 +82,7 @@ export class Naxt {
                         if (this._os === ("windows")) {
                             file_content = Deno.readFileSync( decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replaceAll("/", "\\").replace("file:\\\\\\", "")));
                         }else {
-                            file_content = Deno.readFileSync( decodeURIComponent((this._dir + `/view/${staticMaps[i]}` + resolvedPath).replace("file:///", "file://").replaceAll("/", "/")));
+                            file_content = Deno.readFileSync( new URL(decodeURIComponent((this._dir + `/view/${staticMaps[i]}` + resolvedPath).replace("file:///", "file:///").replaceAll("/", "/"))));
                         }
                         
                         return c.html(file_content);
