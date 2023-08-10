@@ -4,23 +4,23 @@ import { hotReload } from "./hotReload.js";
 
 export function renderServerSideJSX(contextJSX, headJSX, config, token) {
     if (contextJSX === undefined) {
-        contextJSX = <>Undefined</>;
+        contextJSX = <> Undefined </>;
     }
 
     const configCopy = {...config};
 
     let hotReloadScript = hotReload(token, configCopy);
 
-    config = config.heads; // headsに変換
+    let config_heads = config.heads; // headsに変換
 
-    if (config === undefined) {
-        config = {
+    if (config_heads === undefined) {
+        config_heads = {
             lang: "en",
             ogprefix: encodeURIComponent("og: https://ogp.me/ns#")
         };
     }else {
-        config = {
-            lang: config.lang,
+        config_heads = {
+            lang: config_heads.lang,
             ogprefix: encodeURIComponent(config.ogprefix)
         }
     }
@@ -49,8 +49,9 @@ export function renderServerSideJSX(contextJSX, headJSX, config, token) {
 
     const renderString = `
         <!DOCTYPE html>
-        <html lang="${config.lang}">
-            <head prefix="${decodeURIComponent(config.ogprefix)}">
+        <html lang="${config_heads.lang}">
+            <head prefix="${decodeURIComponent(config_heads.ogprefix)}">
+                ${renderToString(dafaultCSS)}
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta charset="utf-8" />
                 <link rel="shortcut icon" href="/static/favicon.ico" />
@@ -59,7 +60,6 @@ export function renderServerSideJSX(contextJSX, headJSX, config, token) {
                 <link rel="stylesheet" href="/static/global.css" />
 
                 <meta name="render-scripts" content="naxtjs"/>
-                ${renderToString(dafaultCSS)}
             </head>
             <body>
                 <div id="naxt">

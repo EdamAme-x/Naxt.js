@@ -3,7 +3,6 @@ import { env } from "./env.js"
 
 // ルーティング用
 import { path_utils } from "./utils/mods.js"
-import { serveFile } from 'https://deno.land/x/std@0.140.0/http/file_server.ts'
 
 
 // SSR用
@@ -51,7 +50,7 @@ export class Naxt {
                 }
             }
 
-            const renderTargetComponent = path_utils.SearchPath(currentPath, this._map["view"], this._map._404);
+            const renderTargetComponent = path_utils.SearchPath(currentPath, this._map[this._map.routes], this._map._404);
             const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, !1, this._config, alive_check_token);
             return c.html(shareClientComponent);
         });
@@ -80,9 +79,9 @@ export class Naxt {
                     try {
                         let file_content;
                         if (this._os === ("windows")) {
-                            file_content = Deno.readFileSync( decodeURIComponent((this._dir + `\\view\\${staticMaps[i]}` + resolvedPath).replaceAll("/", "\\").replace("file:\\\\\\", "")));
+                            file_content = Deno.readFileSync( decodeURIComponent((this._dir + `\\${this._map.routes}\\${staticMaps[i]}` + resolvedPath).replaceAll("/", "\\").replace("file:\\\\\\", "")));
                         }else {
-                            file_content = Deno.readFileSync( new URL(decodeURIComponent((this._dir + `/view/${staticMaps[i]}` + resolvedPath).replace("file:///", "file:///").replaceAll("/", "/"))));
+                            file_content = Deno.readFileSync( new URL(decodeURIComponent((this._dir + `/${this._map.routes}\\/${staticMaps[i]}` + resolvedPath).replace("file:///", "file:///").replaceAll("/", "/"))));
                         }
 
                         return c.body(file_content);
@@ -92,7 +91,7 @@ export class Naxt {
                 }
             } // static files
 
-            const renderTargetComponent = path_utils.SearchPath(currentPath, this._map["view"], this._map._404);
+            const renderTargetComponent = path_utils.SearchPath(currentPath, this._map[this._map.routes], this._map._404);
             const shareClientComponent = jsx_utils.renderServerSideJSX(renderTargetComponent, !1, this._config, alive_check_token);
             return c.html(shareClientComponent);
         });

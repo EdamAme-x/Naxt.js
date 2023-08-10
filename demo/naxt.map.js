@@ -17,7 +17,8 @@ const naxtMap = {
         "/api/getDateNow": $$0
     },
     "_404": $3,
-    "static": ["static"]
+    "static": ["static"],
+    "routes": "view"
 }
 
 

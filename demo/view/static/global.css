@@ -1,4 +1,60 @@
 body {
-    background-color: #000000;
+    background-color: #0F0F0F;
     color: #ffffff;
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+.title-container {
+    text-align: center;
+}
+
+.title {
+    margin-top: 50px;
+    color: #d8d8d8;
+    font-weight: bold;
+    font-size: 2rem;
+    font-family: Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.title-emoji {
+    display: inline-block;
+    font-size: 2.25rem;
+    animation-name: furifuri;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    transform-origin: 50% 80%;
+    padding-bottom: 5px;
+}
+
+.icon-container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.icon {
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: rgb(25, 25, 25);
+    box-shadow: 0 0 20px rgb(0, 148, 0);
+}
+
+@keyframes furifuri {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    33% {
+        transform: rotate(-20deg);
+    }
+
+    66% {
+        transform: rotate(20deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
