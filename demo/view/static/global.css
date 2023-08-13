@@ -1,60 +1,114 @@
 body {
-    background-color: #0F0F0F;
-    color: #ffffff;
-    user-select: none;
-    -webkit-user-drag: none;
+  background-color: #0f0f0f;
+  color: #ffffff;
+  user-select: none;
+  -webkit-user-drag: none;
+  overflow-x: hidden;
 }
 
 .title-container {
-    text-align: center;
+  text-align: center;
 }
 
 .title {
-    margin-top: 50px;
-    color: #d8d8d8;
-    font-weight: bold;
-    font-size: 2rem;
-    font-family: Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-top: 50px;
+  color: #d8d8d8;
+  font-weight: bold;
+  font-size: 2rem;
+  font-family: Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .title-emoji {
-    display: inline-block;
-    font-size: 2.25rem;
-    animation-name: furifuri;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    transform-origin: 50% 80%;
-    padding-bottom: 5px;
+  display: inline-block;
+  font-size: 2.25rem;
+  animation-name: furifuri;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform-origin: 50% 80%;
+  padding-bottom: 5px;
 }
 
 .icon-container {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  transform: translateX(-25px);
 }
 
 .icon {
-    margin-top: 20px;
-    border-radius: 10px;
-    background-color: rgb(25, 25, 25);
-    box-shadow: 0 0 20px rgb(0, 148, 0);
+  margin-top: 20px;
+  border-radius: 10px;
+  background-color: rgb(25, 25, 25);
+  box-shadow: 0 0 20px rgb(0, 148, 0);
+  transform: perspective(2500px) rotateY(-40deg) rotateX(55deg);
+  position: relative;
+  z-index: 3;
+}
+
+.icon-shadow,
+.icon-shadow2 {
+  content: "";
+  width: 240px;
+  height: 280px;
+  background-color: rgb(0, 148, 0);
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgb(0, 148, 0);
+  position: absolute;
+  z-index: 2;
+  transform: perspective(2500px) rotateY(-40deg) rotateX(55deg)
+    translateZ(-45px);
+  opacity: 0.75;
+}
+
+.icon-shadow2 {
+  transform: perspective(2500px) rotateY(-40deg) rotateX(55deg)
+    translateZ(-70px);
+  z-index: 1;
+  opacity: 0.5;
+}
+
+.howtodo-container {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.howtodo {
+  width: 340px;
+  height: auto;
+  background-color: #242424;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgb(0, 148, 0);
+}
+
+.howtodo > h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-top: 5px;
+}
+
+.howtodo-icon {
+    float: right;
+    margin: 5px;
 }
 
 @keyframes furifuri {
-    0% {
-        transform: rotate(0deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
 
-    33% {
-        transform: rotate(-20deg);
-    }
+  33% {
+    transform: rotate(-20deg);
+  }
 
-    66% {
-        transform: rotate(20deg);
-    }
+  66% {
+    transform: rotate(20deg);
+  }
 
-    100% {
-        transform: rotate(0deg);
-    }
+  100% {
+    transform: rotate(0deg);
+  }
 }

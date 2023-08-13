@@ -9,6 +9,6 @@ Demo: [https://naxt-demo.deno.dev](https://naxt-demo.deno.dev)
 - コードを整理する
 - API routes
 - プラグイン
-- JSXtoString 再開発 
+- JSXtoString 再開発 => value == Head => render
     - HeadCmp
     - Islands
