@@ -1,11 +1,14 @@
 import { renderToString } from "https://esm.sh/*preact-render-to-string@6.2.0";
 import { initCSS } from "./initCSS.js";
 import { hotReload } from "./hotReload.js";
+import { renderJSX } from "../render/renderJSX.jsx";
 
 export function renderServerSideJSX(contextJSX, headJSX, config, token) {
-    if (contextJSX === undefined) {
-        contextJSX = <> Undefined </>;
+    if (contextJSX.jsx_component() === undefined) {
+        contextJSX.jsx_component() = x => <> Undefined </>;
     }
+
+    let [mainViewString, HeadString] = renderJSX(contextJSX.jsx_component());
 
     const configCopy = {...config};
 
@@ -55,7 +58,7 @@ export function renderServerSideJSX(contextJSX, headJSX, config, token) {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <meta charset="utf-8" />
                 <link rel="shortcut icon" href="/static/favicon.ico" />
-                ${renderToString(headJSX)}
+                ${HeadString == "" ? renderToString(headJSX) : HeadString}
 
                 <link rel="stylesheet" href="/static/global.css" />
 
@@ -63,7 +66,7 @@ export function renderServerSideJSX(contextJSX, headJSX, config, token) {
             </head>
             <body>
                 <div id="naxt">
-                    ${renderToString(contextJSX.jsx_component())}
+                    ${mainViewString ? mainViewString : renderToString(contextJSX.jsx_component())}
                 </div>
 
                 <script type="text/json">
@@ -74,5 +77,5 @@ export function renderServerSideJSX(contextJSX, headJSX, config, token) {
         </html>
     `
 
-    return renderString; // <p>a</p>のjsx.Element を文字列に変換
+    return renderString; // <p>a</p>のjsx.Element を文字列に変換 [renderString, Head]
 }
