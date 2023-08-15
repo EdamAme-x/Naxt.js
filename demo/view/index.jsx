@@ -7,10 +7,13 @@ export default function index() {
       <Head>
         <title>Home | NaxtJS</title>
         <meta name="description" content="NaxtJS App" />
+
+        <link rel="shortcut icon" href="/static/favicon.png" type="image/x-icon" />
       </Head>
       <div class="title-container">
         <h1 class="title">
           Welcome to Naxt.js
+          <button on-click="alert()">alert</button>
           <span class="title-emoji">👋</span>
         </h1>
       </div>
