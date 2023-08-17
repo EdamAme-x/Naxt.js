@@ -51,8 +51,12 @@ function renderJSX(JSX) {
         }
       } else if (element.type === "Head") {
         HeadString += renderToString(
-          element.children.props.children.props.children
+          element.children.props.children.props.children,
         );
+      } else if (element.type === "Imports") {
+        HeadString += decodeURIComponent(renderToString(
+          element.children.props.children.props.children,
+        ));
       } else {
         const excludeProps = ["dangerouslySetInnerHTML", "children"];
         const propsString = Object.entries(element.props || {})
@@ -60,8 +64,11 @@ function renderJSX(JSX) {
           .map(([key, value]) => {
             if (key === "style" && typeof value === "object") {
               const styleString = Object.entries(value)
-                .map(([styleKey, styleValue]) => `${styleKey}: ${styleValue};`)
-                .join(" ");
+                .map(([styleKey, styleValue]) => {
+                  styleKey = styleKey.replace(/([A-Z])/g, (match) => `-${match.toLowerCase()}`);
+                  return `${styleKey}: ${styleValue};`;
+                })
+                .join(" ").replace("0:", "");
               return `${key}="${styleString}"`;
             }
             return `${key}="${value}"`;
@@ -70,15 +77,16 @@ function renderJSX(JSX) {
         if (emptyTags.includes(element.type)) {
           return `<${element.type}${propsString ? " " + propsString : ""} />`;
         }
-        const childText =
-          element.props.dangerouslySetInnerHTML?.__html ||
+        const childText = element.props.dangerouslySetInnerHTML?.__html ||
           (element.props?.children
             ? renderToString(element.props.children)
             : "");
-        return `<${element.type}${propsString ? " " + propsString : ""}>${childText}</${element.type}>`;
+        return `<${element.type}${
+          propsString ? " " + propsString : ""
+        }>${childText}</${element.type}>`;
       }
     }
-  }
+  };
 
   const Strings = renderToString(JSX);
 

@@ -6,9 +6,10 @@ Component oriented
 Demo: [https://naxt-demo.deno.dev](https://naxt-demo.deno.dev)
 
 ### TODO
-- コードを整理する
+- コードを整理する ✅
 - API routes
 - プラグイン
-- JSXtoString 再開発 => value == Head => render
-    - HeadCmp
+- JSXtoString 再開発 ✅
+    - HeadCmp ✅
     - Islands
+    - ErrorHandling
