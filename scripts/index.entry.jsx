@@ -80,44 +80,6 @@ export class Naxt {
           }
         }
 
-        // const staticMaps = this._map["static"];
-
-        // for (let i = 0; i < staticMaps.length; i++) {
-        //   if (currentPath.startsWith(`/${staticMaps[i]}`)) {
-        //     // /static/img.svg => /img.svg
-        //     const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
-        //     try {
-        //       let file_content;
-        //       if (this._os === ("windows")) {
-        //         file_content = Deno.readFileSync(
-        //           decodeURIComponent(
-        //             (this._dir + `\\${this._map.routes}\\${staticMaps[i]}` +
-        //               resolvedPath).replaceAll("/", "\\").replace(
-        //                 "file:\\\\\\",
-        //                 "",
-        //               ),
-        //           ),
-        //         );
-        //       } else {
-        //         file_content = Deno.readFileSync(
-        //           new URL(
-        //             decodeURIComponent(
-        //               (this._dir + `/${this._map.routes}\\/${staticMaps[i]}` +
-        //                 resolvedPath).replace("file:///", "file:///")
-        //                 .replaceAll(
-        //                   "/",
-        //                   "/",
-        //                 ),
-        //             ),
-        //           ),
-        //         );
-        //       }
-
-        //       return c.body(file_content);
-        //     } catch (e) {}
-        //   }
-        // } // static files
-
         const staticFileRouter = this.staticRouter(currentPath, c);
 
         if (staticFileRouter !== null || staticFileRouter !== undefined) {
@@ -193,5 +155,12 @@ export class Naxt {
       }
     } // static files
 
+  }
+
+  apiRouter(cuurrentPath, c) {
+    const apiMaps = this._map["api"];
+
+    const apiFunction = apiMaps[cuurrentPath];
+    apiFunction(c);
   }
 }

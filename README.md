@@ -7,7 +7,7 @@ Demo: [https://naxt-demo.deno.dev](https://naxt-demo.deno.dev)
 
 ### TODO
 - コードを整理する ✅
-- API routes
+- API routes ✅
 - プラグイン
 - JSXtoString 再開発 ✅
     - HeadCmp ✅
