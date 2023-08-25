@@ -83,8 +83,6 @@ export class Naxt {
 
       const apiRouter = this.apiRouter(currentPath, c);
 
-      console.log(apiRouter);
-
       if (apiRouter !== null && apiRouter !== undefined) {
         return apiRouter;
       }
