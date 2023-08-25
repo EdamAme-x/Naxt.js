@@ -34,73 +34,74 @@ export class Naxt {
 
     // root / アクセス時の処理 => /index
     this._honoApp.get("/", (c) => {
-      try {
-        const currentPath = "/index";
+      const currentPath = "/index";
 
-        let alive_check_token = ""; // ホットリロード
+      let alive_check_token = ""; // ホットリロード
 
-        if (this._config.naxt.dev) {
-          alive_check_token = hotReloadToken; // 再起動の度に変更
+      if (this._config.naxt.dev) {
+        alive_check_token = hotReloadToken; // 再起動の度に変更
 
-          if (currentPath === "/_alive_check") {
-            return c.text(alive_check_token);
-          }
+        if (currentPath === "/_alive_check") {
+          return c.text(alive_check_token);
         }
-
-        const renderTargetComponent = path_utils.SearchPath(
-          currentPath,
-          this._map[this._map.routes],
-          this._map._404,
-        );
-        const shareClientComponent = jsx_utils.renderServerSideJSX(
-          renderTargetComponent,
-          !1,
-          this._config,
-          alive_check_token,
-        );
-        return c.html(shareClientComponent);
-      } catch (e) {
-        return this.errorHandler(e, c);
       }
+
+      const renderTargetComponent = path_utils.SearchPath(
+        currentPath,
+        this._map[this._map.routes],
+        this._map._404,
+      );
+      const shareClientComponent = jsx_utils.renderServerSideJSX(
+        renderTargetComponent,
+        !1,
+        this._config,
+        alive_check_token,
+      );
+      return c.html(shareClientComponent);
     });
 
     // /books/ の場合は /books/index | /booksは /books
     // 先に画像等のファイルを検索 無かったら SearchPath で検索 そしてRenderServerSideJSX
     this._honoApp.get("/*", (c) => {
-      try {
-        const currentPath = c._path;
+      const currentPath = c._path;
 
-        let alive_check_token = ""; // ホットリロード
+      let alive_check_token = ""; // ホットリロード
 
-        if (this._config.naxt.dev) {
-          alive_check_token = hotReloadToken; // 再起動の度に変更
+      if (this._config.naxt.dev) {
+        alive_check_token = hotReloadToken; // 再起動の度に変更
 
-          if (currentPath === "/_alive_check") {
-            return c.text(alive_check_token);
-          }
+        if (currentPath === "/_alive_check") {
+          return c.text(alive_check_token);
         }
-
-        const staticFileRouter = this.staticRouter(currentPath, c);
-
-        if (staticFileRouter !== null || staticFileRouter !== undefined) {
-          return staticFileRouter;
-        }
-
-        const renderTargetComponent = path_utils.SearchPath(
-          currentPath,
-          this._map[this._map.routes],
-          this._map._404,
-        );
-        const shareClientComponent = jsx_utils.renderServerSideJSX(
-          renderTargetComponent,
-          !1,
-          this._config,
-          alive_check_token,
-        );
-        return c.html(shareClientComponent);
-      } catch (e) {
-        return this.errorHandler(e, c);
       }
+
+      const staticFileRouter = this.staticRouter(currentPath, c);
+
+      if (staticFileRouter !== null && staticFileRouter !== undefined) {
+        return staticFileRouter;
+      }
+
+      const apiRouter = this.apiRouter(currentPath, c);
+
+      console.log(apiRouter);
+
+      if (apiRouter !== null && apiRouter !== undefined) {
+        return apiRouter;
+      }
+
+      const renderTargetComponent = path_utils.SearchPath(
+        currentPath,
+        this._map[this._map.routes],
+        this._map._404,
+      );
+      const shareClientComponent = jsx_utils.renderServerSideJSX(
+        renderTargetComponent,
+        !1,
+        this._config,
+        alive_check_token,
+      );
+
+      return c.html(shareClientComponent);
     });
 
     env.startLog();
@@ -112,11 +113,11 @@ export class Naxt {
 
   errorHandler(e, c) {
     if (this.dev) {
-        return c.html(e)
+      return c.html(e);
     }
   }
 
-  staticRouter(currentPath, c, ) {
+  staticRouter(currentPath, c) {
     const staticMaps = this._map["static"];
 
     for (let i = 0; i < staticMaps.length; i++) {
@@ -155,12 +156,17 @@ export class Naxt {
       }
     } // static files
 
+    return null;
   }
 
   apiRouter(cuurrentPath, c) {
-    const apiMaps = this._map["api"];
+    if (this._map["api"] !== undefined) {
+      const apiMaps = this._map["api"];
 
-    const apiFunction = apiMaps[cuurrentPath];
-    apiFunction(c);
+      const apiFunction = apiMaps[cuurrentPath];
+      return apiFunction(c);
+    } else {
+      return null;
+    }
   }
 }
