@@ -1,10 +1,4 @@
-export default function api(req, info) {
-
-    /**
-     * req.$_GET["id"]
-     * info.ip
-     * info.ua
-     */
+export default function api(req) {
 
     return new Response(JSON.stringify({
         status: 200,
