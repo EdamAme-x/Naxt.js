@@ -3,12 +3,15 @@ import { initCSS } from "./initCSS.js";
 import { hotReload } from "./hotReload.js";
 import { renderJSX } from "../render/renderJSX.jsx";
 
-export function renderServerSideJSX(contextJSX, headJSX, config, token) {
+export function renderServerSideJSX(contextJSX, headJSX, config, token, contextReq) {
     if (contextJSX.jsx_component() === undefined) {
         contextJSX.jsx_component() = x => <> Undefined </>;
     }
 
-    let [mainViewString, HeadString] = renderJSX(contextJSX.jsx_component());
+    let [mainViewString, HeadString] = renderJSX(contextJSX.jsx_component({
+        param: contextJSX.id_routing,
+        req: contextReq
+    }));
 
     const configCopy = {...config};
 

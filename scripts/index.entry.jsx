@@ -56,6 +56,7 @@ export class Naxt {
         !1,
         this._config,
         alive_check_token,
+        c
       );
       return c.html(shareClientComponent);
     });
@@ -97,6 +98,7 @@ export class Naxt {
         !1,
         this._config,
         alive_check_token,
+        c
       );
 
       return c.html(shareClientComponent);
