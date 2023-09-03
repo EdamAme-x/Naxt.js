@@ -7,7 +7,7 @@
     🌩 TypeScript & JavaScript
  　 🦕 Deno
 
-Demo: [https://naxt-demo.deno.dev](https://naxt-demo.deno.dev)
+<!-- Demo: [https://naxt-demo.deno.dev](https://naxt-demo.deno.dev) -->
 
 ### TODO
 - コードを整理する ✅
