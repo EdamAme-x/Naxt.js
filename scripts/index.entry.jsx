@@ -64,7 +64,7 @@ export class Naxt {
     // /books/ の場合は /books/index | /booksは /books
     // 先に画像等のファイルを検索 無かったら SearchPath で検索 そしてRenderServerSideJSX
     this._honoApp.get("/*", (c) => {
-      const currentPath = c._path;
+      const currentPath = a.req.path;
       console.log("ACCESS: " + JSON.stringify(c))
 
       let alive_check_token = ""; // ホットリロード
