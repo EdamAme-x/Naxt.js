@@ -165,6 +165,7 @@ export class Naxt {
       const apiMaps = this._map["api"];
 
       const apiFunction = apiMaps[cuurrentPath];
+      if (!apiFunction) return null;
       return apiFunction(c);
     } else {
       return null;
