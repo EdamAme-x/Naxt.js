@@ -13,6 +13,7 @@
 - コードを整理する ✅
 - API routes ✅
 - プラグイン
+- Hot Reload ✅
 - JSXtoString 再開発 ✅
     - HeadCmp ✅
     - Islands
