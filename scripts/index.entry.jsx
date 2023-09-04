@@ -65,7 +65,7 @@ export class Naxt {
     // 先に画像等のファイルを検索 無かったら SearchPath で検索 そしてRenderServerSideJSX
     this._honoApp.get("/*", (c) => {
       const currentPath = c._path;
-      console.log("ACCESS: " + currentPath)
+      console.log("ACCESS: " + c)
 
       let alive_check_token = ""; // ホットリロード
 
