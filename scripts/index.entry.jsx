@@ -65,6 +65,7 @@ export class Naxt {
     // 先に画像等のファイルを検索 無かったら SearchPath で検索 そしてRenderServerSideJSX
     this._honoApp.get("/*", (c) => {
       const currentPath = c._path;
+      console.log("ACCESS: " + currentPath)
 
       let alive_check_token = ""; // ホットリロード
 
@@ -121,7 +122,6 @@ export class Naxt {
     const staticMaps = this._map["static"];
 
     for (let i = 0; i < staticMaps.length; i++) {
-      if (!currentPath) continue;
       if (currentPath.startsWith(`/${staticMaps[i]}`)) {
         // /static/img.svg => /img.svg
         const resolvedPath = currentPath.replace(`/${staticMaps[i]}`, "");
