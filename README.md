@@ -18,3 +18,4 @@ Demo: [https://naxt-demo.deno.dev](https://naxt-demo.deno.dev)
     - HeadCmp ✅
     - Islands
     - ErrorHandling
+- Custom Router
