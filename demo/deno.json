@@ -1,0 +1,8 @@
+{
+    "tasks": {
+        "start": "deno run --allow-all --watch=routes/,private/ main.ts"
+    },
+    "imports": {
+        "$naxtjs/": "../packages/"
+    }
+}

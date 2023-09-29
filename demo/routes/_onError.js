@@ -1,8 +1,6 @@
-export default function onError({ context, error }) {
-
-    console.error(error);
+export default function onError(error, context) {
 
     return context.html(`
-        <h1>Something went wrong!</h1>
+        <h1>Something went wrong! : ${error}</h1>
     `);
 }
