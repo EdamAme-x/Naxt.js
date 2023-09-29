@@ -59,11 +59,11 @@ export class NaxtServer {
   routePatch() {
     for (const route of this.routes) {
       if (route.target == "/_onError") {
-        this.hono.onError(route.module.default);
+        this.hono.onError(route.module.default as any);
       } else if (route.target == "/_notFound") {
-        this.hono.notFound(route.module.default);
+        this.hono.notFound(route.module.default as any);
       }
-      this.hono.all(route.target, route.module.default);
+      this.hono.all(route.target as string, route.module.default as any);
     }
   }
 
