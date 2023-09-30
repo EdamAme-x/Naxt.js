@@ -10,6 +10,7 @@ import { FW_Utils } from "https://deno.land/x/framework_utils/mod.ts";
 import { ParseRelativePath } from "./../utils/parseRelativePath.ts";
 import { Context } from "https://deno.land/x/hono@v3.7.2/context.ts";
 import { Page, PageClassifier } from "../types/page.ts";
+import { importModuleIfSupported } from "./IfModule.ts";
 
 export class NaxtServer {
   basePath: string;
@@ -30,27 +31,6 @@ export class NaxtServer {
     this.routing();
   }
 
-  async importModuleIfSupported(path: string) {
-    const fileExtension = path.split(".").pop()?.toLowerCase();
-
-    if (
-      fileExtension === "js" ||
-      fileExtension === "ts" ||
-      fileExtension === "jsx" ||
-      fileExtension === "tsx"
-    ) {
-      try {
-        const module = await import(path);
-        return module;
-      } catch (e: string | unknown) {
-        throw Error(
-          `\n\n 🌊: There is a problem with the exported function. \n\n ${e}`
-        );
-      }
-    }
-    return null;
-  }
-
   async routing() {
     const dirs = FW_Utils.DirectoryDraw({
       base: this.basePath,
@@ -58,7 +38,7 @@ export class NaxtServer {
     this.checked = 0;
 
     for (const dir of dirs) {
-      const module = await this.importModuleIfSupported(dir.fullPath);
+      const module = await importModuleIfSupported(dir.fullPath);
       if (module) {
         this.routes.push({
           target: ParseRelativePath(dir.relativePath),
