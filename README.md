@@ -1,10 +1,10 @@
-# 🔥 Naxt.js 
+# 🔥 Naxt.js
 
-*Naxt.js* is a framework based on [Hono](https://github.com/honojs/hono)🔥.
+_Naxt.js_ is a framework based on [Hono](https://github.com/honojs/hono)🔥.
 We are aiming for a **Japanese-made** framework.
 
-![naxt-js-logo](/assets/icon.png)
-Ultra-fast framework 🔥
+<img src="/assets/icon.png" alt="naxt-js-logo" width="200" />
+### Ultra-fast framework 🔥
 
 on 🦕 Deno and ... coming soon.
 
@@ -16,10 +16,10 @@ on 🦕 Deno and ... coming soon.
 
 ```markdown
 |-routes
-    |-- index.js
-    |-- about.ts
-    |-api
-        |-- firebase.ts
+|-- index.js
+|-- about.ts
+|-api
+|-- firebase.ts
 ```
 
 In the above file structure...
