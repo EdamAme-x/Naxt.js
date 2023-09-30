@@ -16,8 +16,8 @@ export class NaxtServer {
   port: number;
   hono: Hono;
   routes: {
-    target: string; // /api/:id
-    module: Page;
+    target: string;
+    module: Page | any
   }[] = [];
   checked: number = 0;
 
@@ -62,16 +62,31 @@ export class NaxtServer {
       if (module) {
         this.routes.push({
           target: ParseRelativePath(dir.relativePath),
-          module: (c: Context) => {
-            try {
-              c.header("X-Powered-By", "Hono");
-              c.header("server", "deno/Naxtjs");
-            } catch (e: string | unknown) {
-              throw Error(`\n\n 🌊: No Response assigned \n\n ${e}`);
+          module: (() => {
+            if (ParseRelativePath(dir.relativePath) == "/_onError") {
+              return (error: Error, c: Context) => {
+                try {
+                  c.header("X-Powered-By", "Hono");
+                  c.header("server", "deno/Naxtjs");
+                } catch (e: string | unknown) {
+                  console.error(`\n\n 🌊: No Response assigned \n\n`);
+                }
+
+                return module.default(error, c);
+              };
             }
 
-            return module.default(c);
-          },
+            return (c: Context) => {
+              try {
+                c.header("X-Powered-By", "Hono");
+                c.header("server", "deno/Naxtjs");
+              } catch (e: string | unknown) {
+                console.error(`\n\n 🌊: No Response assigned \n\n`);
+              }
+
+              return module.default(c);
+            };
+          })(),
         });
       } else {
         this.routes.push({

@@ -1,5 +1,11 @@
+import { html } from "$naxtjs/helper/html/mod.ts";
+
 export default function Index(context) {
-    return context.html(`
-        <h1>Welcome to Naxt.js</h1>
-    `);
+
+    const page = html`
+        <h1>Welcome to Naxt.js 🔥</h1>
+        ${Date.now()}
+    `
+
+    return context.html(page);
 }

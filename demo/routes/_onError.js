@@ -1,6 +1,4 @@
-export default function onError(error, context) {
+export default function onError(error, c) {
 
-    return context.html(`
-        <h1>Something went wrong! : ${error}</h1>
-    `);
+    return c.text(`Something went wrong! \n ${error}`);
 }
