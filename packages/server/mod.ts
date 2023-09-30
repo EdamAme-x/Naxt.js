@@ -42,8 +42,10 @@ export class NaxtServer {
       try {
         const module = await import(path);
         return module;
-      } catch (e) {
-        console.error(e);
+      } catch (e: string | unknown) {
+        throw Error(
+          `\n\n 🌊: There is a problem with the exported function. \n\n ${e}`
+        );
       }
     }
     return null;
@@ -61,8 +63,12 @@ export class NaxtServer {
         this.routes.push({
           target: ParseRelativePath(dir.relativePath),
           module: (c: Context) => {
-            c.header("X-Powered-By", "Hono");
-            c.header("server", "deno/Naxtjs");
+            try {
+              c.header("X-Powered-By", "Hono");
+              c.header("server", "deno/Naxtjs");
+            } catch (e: string | unknown) {
+              throw Error(`\n\n 🌊: No Response assigned \n\n ${e}`);
+            }
 
             return module.default(c);
           },
