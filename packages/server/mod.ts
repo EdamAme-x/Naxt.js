@@ -36,6 +36,7 @@ export class NaxtServer {
       base: this.basePath,
     });
     this.checked = 0;
+    const start = performance.now();
 
     for (const dir of dirs) {
       const module = await importModuleIfSupported(dir.fullPath);
@@ -79,23 +80,46 @@ export class NaxtServer {
       this.checked++;
 
       if (this.checked === dirs.length) {
-        this.routePatch();
+        console.log(
+          `🔥: All routes checked / ${((performance.now() - start) / 1000)
+            .toString()
+            .substring(0, 6)} s`
+        );
+        console.log(
+          `🔥: All routes patched / ${(this.routePatch() / 1000)
+            .toString()
+            .substring(0, 6)} s`
+        );
       }
     }
   }
 
   routePatch() {
+    console.log(`🔥: Patching...`);
+    const start = performance.now();
     for (const route of this.routes) {
-      if (route.target == "/_onError") {
-        this.hono.onError(route.module);
-      } else if (route.target == "/_notFound") {
-        this.hono.notFound(route.module);
+      try {
+        if (route.target == "/_onError") {
+          this.hono.onError(route.module);
+        } else if (route.target == "/_notFound") {
+          this.hono.notFound(route.module);
+        }
+        this.hono.all(route.target as string, route.module);
+      } catch (e: string | unknown) {
+        console.error(" 🌊: Failed Patch '" + route.target + "' \n " + e);
       }
-      this.hono.all(route.target as string, route.module);
     }
+
+    return performance.now() - start;
   }
 
   fire() {
     serve(this.hono.fetch, { port: this.port });
+  }
+
+  async request(...args: unknown[]) {
+    // deno-lint-ignore ban-ts-comment
+    // @ts-ignore
+    await this.hono.request(...args);
   }
 }
