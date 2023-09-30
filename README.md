@@ -4,6 +4,7 @@ _Naxt.js_ is a framework based on [Hono](https://github.com/honojs/hono)🔥.
 We are aiming for a **Japanese-made** framework.
 
 <img src="/assets/icon.png" alt="naxt-js-logo" width="200" />
+
 ### Ultra-fast framework 🔥
 
 on 🦕 Deno and ... coming soon.
