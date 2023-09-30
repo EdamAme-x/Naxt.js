@@ -1,9 +1,15 @@
-import { Hono } from "https://deno.land/x/hono/mod.ts";
+import {
+  ErrorHandler,
+  Handler,
+  Hono,
+  NotFoundHandler,
+} from "https://deno.land/x/hono/mod.ts";
 import { serveStatic } from "../utils/serveStatic.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
 import { FW_Utils } from "https://deno.land/x/framework_utils/mod.ts";
 import { ParseRelativePath } from "./../utils/parseRelativePath.ts";
 import { Context } from "https://deno.land/x/hono@v3.7.2/context.ts";
+import { Page } from "../types/page.ts";
 
 export class NaxtServer {
   basePath: string;
@@ -11,7 +17,7 @@ export class NaxtServer {
   hono: Hono;
   routes: {
     target: string; // /api/:id
-    module: Function;
+    module: Page;
   }[] = [];
   checked: number = 0;
 
@@ -80,15 +86,15 @@ export class NaxtServer {
   routePatch() {
     for (const route of this.routes) {
       if (route.target == "/_onError") {
-        this.hono.onError(route.module as any);
+        this.hono.onError(route.module as unknown as ErrorHandler);
       } else if (route.target == "/_notFound") {
-        this.hono.notFound(route.module as any);
+        this.hono.notFound(route.module as unknown as NotFoundHandler);
       }
-      this.hono.all(route.target as string, route.module as any);
+      this.hono.all(route.target as string, route.module as unknown as Handler);
     }
   }
 
-  async fire() {
+  fire() {
     serve(this.hono.fetch, { port: this.port });
   }
 }

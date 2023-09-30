@@ -7,7 +7,7 @@ on 🦕 Deno and ... coming soon.
 
 ## Features
 
-### Routing is done in File-Dir Base.
+### Routing is done in File-Dir Base. & NoBuild
 
 #### Example
 
