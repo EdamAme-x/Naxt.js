@@ -37,14 +37,15 @@ export class NaxtServer {
     });
     this.checked = 0;
     const start = performance.now();
+    const routePromises = [];
 
     for (const dir of dirs) {
-      const module = await importModuleIfSupported(dir.fullPath);
-      if (module) {
-        this.routes.push({
-          target: ParseRelativePath(dir.relativePath),
-          module: (() => {
-            if (ParseRelativePath(dir.relativePath) == "/_onError") {
+      const routePromise = (async () => {
+        const module = await importModuleIfSupported(dir.fullPath);
+        if (module) {
+          const target = ParseRelativePath(dir.relativePath);
+          const routeModule = (() => {
+            if (target === "/_onError") {
               return (error: Error, c: Context) => {
                 try {
                   c.header("X-Powered-By", "Hono");
@@ -52,11 +53,9 @@ export class NaxtServer {
                 } catch (_e: string | unknown) {
                   console.error(`\n\n 🌊: No Response assigned \n\n`);
                 }
-
                 return module.default(error, c);
               };
             }
-
             return (c: Context) => {
               try {
                 c.header("X-Powered-By", "Hono");
@@ -64,33 +63,46 @@ export class NaxtServer {
               } catch (_e: string | unknown) {
                 console.error(`\n\n 🌊: No Response assigned \n\n`);
               }
-
               return module.default(c);
             };
-          })(),
-        });
-      } else {
-        this.routes.push({
-          target: dir.relativePath,
-          module: serveStatic({
-            root: this.basePath,
-          }),
-        });
-      }
-      this.checked++;
+          })();
+          return {
+            target,
+            module: routeModule,
+          };
+        } else {
+          return {
+            target: dir.relativePath,
+            module: (...args: unknown[]) =>
+              serveStatic({
+                root: this.basePath,
+                // deno-lint-ignore ban-ts-comment
+                // @ts-ignore
+              })(...args),
+          };
+        }
+      })();
+      routePromises.push(routePromise);
+    }
 
-      if (this.checked === dirs.length) {
-        console.log(
-          `🔥: All routes checked / ${((performance.now() - start) / 1000)
-            .toString()
-            .substring(0, 6)} s`
-        );
-        console.log(
-          `🔥: All routes patched / ${(this.routePatch() / 1000)
-            .toString()
-            .substring(0, 6)} s`
-        );
-      }
+    const routeResults = await Promise.all(routePromises);
+
+    for (const routeResult of routeResults) {
+      this.routes.push(routeResult);
+      this.checked++;
+    }
+
+    if (this.checked === dirs.length) {
+      console.log(
+        `🔥: All routes checked / ${((performance.now() - start) / 1000)
+          .toString()
+          .substring(0, 6)} s`
+      );
+      console.log(
+        `🔥: All routes patched / ${(this.routePatch() / 1000)
+          .toString()
+          .substring(0, 6)} s`
+      );
     }
   }
 
