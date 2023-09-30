@@ -9,7 +9,7 @@ import { serve } from "https://deno.land/std/http/server.ts";
 import { FW_Utils } from "https://deno.land/x/framework_utils/mod.ts";
 import { ParseRelativePath } from "./../utils/parseRelativePath.ts";
 import { Context } from "https://deno.land/x/hono@v3.7.2/context.ts";
-import { Page } from "../types/page.ts";
+import { Page, PageClassifier } from "../types/page.ts";
 
 export class NaxtServer {
   basePath: string;
@@ -17,9 +17,9 @@ export class NaxtServer {
   hono: Hono;
   routes: {
     target: string;
-    module: Page | any
+    module: Page | ErrorHandler | PageClassifier;
   }[] = [];
-  checked: number = 0;
+  checked = 0;
 
   constructor(basePath: string, port: number = 8080) {
     this.basePath = basePath;
@@ -68,7 +68,7 @@ export class NaxtServer {
                 try {
                   c.header("X-Powered-By", "Hono");
                   c.header("server", "deno/Naxtjs");
-                } catch (e: string | unknown) {
+                } catch (_e: string | unknown) {
                   console.error(`\n\n 🌊: No Response assigned \n\n`);
                 }
 
@@ -80,7 +80,7 @@ export class NaxtServer {
               try {
                 c.header("X-Powered-By", "Hono");
                 c.header("server", "deno/Naxtjs");
-              } catch (e: string | unknown) {
+              } catch (_e: string | unknown) {
                 console.error(`\n\n 🌊: No Response assigned \n\n`);
               }
 
@@ -107,11 +107,11 @@ export class NaxtServer {
   routePatch() {
     for (const route of this.routes) {
       if (route.target == "/_onError") {
-        this.hono.onError(route.module as unknown as ErrorHandler);
+        this.hono.onError(route.module);
       } else if (route.target == "/_notFound") {
-        this.hono.notFound(route.module as unknown as NotFoundHandler);
+        this.hono.notFound(route.module);
       }
-      this.hono.all(route.target as string, route.module as unknown as Handler);
+      this.hono.all(route.target as string, route.module);
     }
   }
 

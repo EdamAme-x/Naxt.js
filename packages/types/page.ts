@@ -10,3 +10,5 @@ type ServeStaticOptions = {
 export type Page =
   | ((c: Context, next: Next) => Context | Promise<unknown> | unknown)
   | ((options: ServeStaticOptions) => Promise<unknown>);
+
+export type PageClassifier = any; // TODO
