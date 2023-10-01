@@ -8,10 +8,12 @@ const server = new NaxtServer(
   {
     liveReload: args[0] === "--dev" ? true : false,
     onInit: (c) => {
-      console.log(
-        `[ %c${c.req.method ? c.req.method : "Unknown"} %c] "%c${c.req.path}"`,
-        "color: #0FF000", "color: #FFFFFF", "color: #FFEEEE"
-      );
+      if (c.req.path !== "/_liveReload") {
+        console.log(
+          `[ %c${c.req.method ? c.req.method : "Unknown"} %c] "%c${c.req.path}"`,
+          "color: #0FF000", "color: #FFFFFF", "color: #FFEEEE"
+        );
+      }
     }, // Functions executed at access time on all routes
   }
 );

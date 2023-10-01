@@ -1,6 +1,5 @@
 import { html } from "$naxtjs/helper/html/mod.ts";
 import { LiveReload } from "$naxtjs/helper/live/mod.ts";
-import { read } from "$naxtjs/helper/read/mod.ts";
 
 export default function Index(context) {
     

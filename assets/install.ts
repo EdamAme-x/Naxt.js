@@ -21,6 +21,8 @@ try {
   await Deno.remove("_" + appName, {
     recursive: true,
   });
+
+  Deno.writeFileSync(appName + "/deno.json", new TextEncoder().encode(Deno.readTextFileSync(appName + "/deno.json").replace("../packages/", "https://deno.land/x/naxtjs/")))
 } catch (e) {
   console.error(e);
 }
