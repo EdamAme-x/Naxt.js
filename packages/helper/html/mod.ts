@@ -8,5 +8,14 @@ export function html(strings: string[], ...values: string[]) {
       result += values[i];
     }
   }
-  return Minifier("html", result);
+
+  let resultHTML = "";
+
+  try {
+    resultHTML = Minifier("html", result);
+  } catch (_e) {
+    return result;
+  }
+
+  return resultHTML;
 }
