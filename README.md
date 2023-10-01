@@ -11,7 +11,7 @@ on 🦕 Deno and ... coming soon.
 
 ## Features
 
-### Routing is done in File-Dir Base. & NoBuild
+### Routing is done in File-Dir Base. & NoBuild & AutoMinify
 
 #### Example
 

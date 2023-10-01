@@ -21,10 +21,21 @@ export class NaxtServer {
     module: Page | ErrorHandler | PageClassifier;
   }[] = [];
   checked = 0;
+  token? = 0; // LiveReload
+  liveReload? = false;
 
-  constructor(basePath: string, port: number = 8080) {
+  constructor(
+    basePath: string,
+    port: number = 8080,
+    config?: {
+      liveReload: boolean;
+    }
+  ) {
     this.basePath = basePath;
     this.port = port ? port : 8080;
+    if (config) {
+      this.liveReload = config.liveReload ? true : false;
+    }
 
     this.hono = new Hono();
 
@@ -49,7 +60,7 @@ export class NaxtServer {
               return (error: Error, c: Context) => {
                 try {
                   c.header("X-Powered-By", "Hono");
-                  c.header("server", "deno/Naxtjs");
+                  c.header("server", "deno / Naxtjs");
                 } catch (_e: string | unknown) {
                   console.error(`\n\n 🌊: No Response assigned \n\n`);
                 }
@@ -59,7 +70,7 @@ export class NaxtServer {
             return (c: Context) => {
               try {
                 c.header("X-Powered-By", "Hono");
-                c.header("server", "deno/Naxtjs");
+                c.header("server", "deno / Naxtjs");
               } catch (_e: string | unknown) {
                 console.error(`\n\n 🌊: No Response assigned \n\n`);
               }
@@ -126,6 +137,14 @@ export class NaxtServer {
   }
 
   fire() {
+    if (this.liveReload) {
+      this.token = Date.now();
+      this.hono.all("/_liveReload", (c) => {
+        if (!this.token) return c.text("0", 500);
+        return c.text(this.token.toString(), 200);
+      });
+    }
+
     serve(this.hono.fetch, { port: this.port });
   }
 
