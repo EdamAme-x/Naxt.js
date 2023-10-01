@@ -158,9 +158,9 @@ export class NaxtServer {
     }
 
     serve(this.hono.fetch, { port: this.port });
-    // console.clear();
+    console.clear();
     console.log(
-      `%c🔥: Launched on http://localhost:${this.port} `,
+      `%c🔥: Starting at http://localhost:${this.port} `,
       "background-color: #FFDDDD; color: #000000"
     );
   }

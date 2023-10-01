@@ -1,8 +1,9 @@
 import { html } from "$naxtjs/helper/html/mod.ts";
 import { LiveReload } from "$naxtjs/helper/live/mod.ts";
+import { read } from "$naxtjs/helper/read/mod.ts";
 
 export default function Index(context) {
-
+    
     const page = html`
     <html>
     <head lang="ja">
@@ -21,7 +22,8 @@ export default function Index(context) {
         ${LiveReload()}
     </body>
     </html>
-    `
+    `;
 
     return context.html(page);
 }
+

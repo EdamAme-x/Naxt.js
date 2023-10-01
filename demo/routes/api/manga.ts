@@ -1,13 +1,6 @@
 import { Context } from "$naxtjs/types/args.ts";
+import { mangas } from './../../private/mangas.ts';
 
-const mangas = [
-  "Naruto",
-  "One Piece",
-  "Dragon Ball",
-  "Hunter x Hunter",
-  "Bleach",
-  "Death Note",
-];
 
 export default function Manga(context: Context) {
 

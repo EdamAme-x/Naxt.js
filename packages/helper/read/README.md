@@ -1,0 +1,1 @@
+read("relativePath", import.meta.url) でファイルの中身取得
