@@ -1,6 +1,6 @@
 import { Minifier } from "https://deno.land/x/framework_utils/Minifier/mod.ts";
 
-export function LiveReload(interval: number): string {
+export function LiveReload(interval?: number): string {
   if (typeof interval !== "number") {
     interval = 1000;
   }

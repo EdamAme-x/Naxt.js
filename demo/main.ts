@@ -7,7 +7,10 @@ const server = new NaxtServer(
   8080,
   {
     liveReload: args[0] === "--dev" ? true : false,
+    onInit: (c) => {
+
+    } // Functions executed at access time on all routes
   }
 );
 
-server.fire();
+server.fire()

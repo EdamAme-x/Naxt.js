@@ -23,18 +23,21 @@ export class NaxtServer {
   checked = 0;
   token? = 0; // LiveReload
   liveReload? = false;
+  onInit?: (c: Context) => unknown;
 
   constructor(
     basePath: string,
     port: number = 8080,
     config?: {
       liveReload: boolean;
+      onInit?: (c: Context) => unknown;
     }
   ) {
     this.basePath = basePath;
     this.port = port ? port : 8080;
     if (config) {
       this.liveReload = config.liveReload ? true : false;
+      this.onInit = config.onInit;
     }
 
     this.hono = new Hono();
@@ -58,6 +61,10 @@ export class NaxtServer {
           const routeModule = (() => {
             if (target === "/_onError") {
               return (error: Error, c: Context) => {
+                if (this.onInit) {
+                  this.onInit(c);
+                }
+
                 try {
                   c.header("X-Powered-By", "Hono");
                   c.header("server", "deno / Naxtjs");
@@ -68,6 +75,10 @@ export class NaxtServer {
               };
             }
             return (c: Context) => {
+              if (this.onInit) {
+                this.onInit(c);
+              }
+
               try {
                 c.header("X-Powered-By", "Hono");
                 c.header("server", "deno / Naxtjs");
@@ -105,7 +116,7 @@ export class NaxtServer {
 
     if (this.checked === dirs.length) {
       console.log(
-        `🔥: All routes checked / ${((performance.now() - start) / 1000)
+        `\n🔥: All routes checked / ${((performance.now() - start) / 1000)
           .toString()
           .substring(0, 6)} s`
       );
@@ -146,6 +157,11 @@ export class NaxtServer {
     }
 
     serve(this.hono.fetch, { port: this.port });
+    console.clear();
+    console.log(
+      `%c🔥: Launched on http://localhost:${this.port} `,
+      "background-color: #FFDDDD; color: #000000"
+    );
   }
 
   async request(...args: unknown[]) {
