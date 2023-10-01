@@ -1,3 +1,28 @@
-body {
-    margin: 0;
+body { 
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #111111;
+  background-image: url(/static/fire.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  color: #f1f1f1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+[alt="icon"] {
+  opacity: 0.9;
+  border-radius: 50%;
+  transition: 0.25s all;
+}
+
+[alt="icon"]:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 25px #ffb1b161);
+  transition: 0.25s all;
 }

@@ -12,8 +12,10 @@ export default function Index(context) {
         <link rel="stylesheet" href="/static/index.css">    
     </head>
     <body>
+        <img src="/static/favicon.png" alt="icon" width="240" />
         <h1>Welcome to Naxt.js 🔥</h1>
-        ${Date.now()}
+        <h2>Ultrafast Fullstack Framework on Hono 🔥</h2>
+        ${new Date()}
         ${LiveReload()}
     </body>
     </html>
