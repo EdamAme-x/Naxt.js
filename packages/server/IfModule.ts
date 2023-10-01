@@ -2,10 +2,11 @@ export async function importModuleIfSupported(path: string) {
   const fileExtension = path.split(".").pop()?.toLowerCase();
 
   if (
-    fileExtension === "js" ||
-    fileExtension === "ts" ||
-    fileExtension === "jsx" ||
-    fileExtension === "tsx"
+    (fileExtension === "js" ||
+      fileExtension === "ts" ||
+      fileExtension === "jsx" ||
+      fileExtension === "tsx") &&
+    !path.split("/").pop()?.startsWith("^")
   ) {
     try {
       const module = await import(path);

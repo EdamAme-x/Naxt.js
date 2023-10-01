@@ -1,0 +1,1 @@
+console.log("Welcome to Naxt.js 🔥", "To mark a file as static, append '^' to the beginning of the file.");

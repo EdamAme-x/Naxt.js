@@ -4,11 +4,12 @@ export function ParseRelativePath(path: string): string {
   for (const ext of extensions) {
     if (path.endsWith(ext)) {
       path = path.slice(0, -ext.length);
-      break; 
+      break;
     }
   }
 
-  path = path.replace(/\/@/g, "/:");
+  path = path.replaceAll(/\/@/g, "/:");
+  path = path.replaceAll(/\/^/g, "/");
 
   path = path.replace(/\/index$/, "/");
 

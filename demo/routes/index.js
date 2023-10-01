@@ -10,6 +10,7 @@ export default function Index(context) {
         <meta charset="UTF-8">
         <link rel="icon" href="/static/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="/static/index.css">    
+        <script src="/static/client.js"></script>
     </head>
     <body>
         <img src="/static/favicon.png" alt="icon" width="240" />

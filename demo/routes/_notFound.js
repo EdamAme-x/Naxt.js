@@ -1,5 +1,5 @@
 export default function notFound(context) {
-    return context.html(`
-        <div>404 Not Found</div>
-    `);
+    return context.text(`
+        404 Not Found
+    `, 404);
 }

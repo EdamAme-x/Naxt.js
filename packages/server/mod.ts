@@ -8,6 +8,7 @@ import { serveStatic } from "../utils/serveStatic.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
 import { FW_Utils } from "https://deno.land/x/framework_utils/mod.ts";
 import { ParseRelativePath } from "./../utils/parseRelativePath.ts";
+import { ParseRelativePathStatic } from "./../utils/parseRelativePathStatic.ts";
 import { Context } from "https://deno.land/x/hono@v3.7.2/context.ts";
 import { Page, PageClassifier } from "../types/page.ts";
 import { importModuleIfSupported } from "./IfModule.ts";
@@ -94,7 +95,7 @@ export class NaxtServer {
           };
         } else {
           return {
-            target: dir.relativePath,
+            target: ParseRelativePathStatic(dir.relativePath),
             module: (...args: unknown[]) =>
               serveStatic({
                 root: this.basePath,
@@ -157,7 +158,7 @@ export class NaxtServer {
     }
 
     serve(this.hono.fetch, { port: this.port });
-    console.clear();
+    // console.clear();
     console.log(
       `%c🔥: Launched on http://localhost:${this.port} `,
       "background-color: #FFDDDD; color: #000000"

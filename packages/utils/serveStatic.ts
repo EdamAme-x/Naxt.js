@@ -37,8 +37,11 @@ export const serveStatic = (options: ServeStaticOptions = { root: '' }) => {
 
     try {
       content = await readFile(new URL(path))
-    } catch (e) {
-      console.warn(`${e}`)
+    } catch (_e) {
+      const newPath = path.split("\/");
+      const fileName = "^" + newPath.pop()
+      newPath.push(fileName)
+      content = await readFile(new URL(newPath.join("\\")))
     }
 
     if (content) {
