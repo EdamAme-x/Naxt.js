@@ -9,6 +9,9 @@ We are aiming for a **Japanese-made** framework.
 
 on 🦕 Deno and ... coming soon.
 
+## Installation
+`deno run -A https://raw.githubusercontent.com/EdamAme-x/Naxt.js/main/assets/install.ts my-app`
+
 ## Features
 
 ### Routing is done in File-Dir Base. & NoBuild & EasyMinifier & LiveReload & Many Middlewares
