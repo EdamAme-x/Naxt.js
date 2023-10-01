@@ -140,11 +140,11 @@ export class NaxtServer {
     for (const route of this.routes) {
       try {
         if (route.target == "/_onError") {
-          this.hono.onError(route.module);
+          this.hono.onError(route.module as ErrorHandler);
         } else if (route.target == "/_notFound") {
-          this.hono.notFound(route.module);
+          this.hono.notFound(route.module as NotFoundHandler);
         }
-        this.hono.all(route.target as string, route.module);
+        this.hono.all(route.target as string, route.module as Handler);
       } catch (e: string | unknown) {
         console.error(" 🌊: Failed Patch '" + route.target + "' \n " + e);
       }
