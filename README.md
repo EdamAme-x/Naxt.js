@@ -11,7 +11,7 @@ on 🦕 Deno and ... coming soon.
 
 ## Features
 
-### Routing is done in File-Dir Base. & NoBuild & AutoMinify & LiveReload
+### Routing is done in File-Dir Base. & NoBuild & EasyMinifier & LiveReload & Many Middlewares
 
 #### Example
 
