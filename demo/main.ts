@@ -8,9 +8,12 @@ const server = new NaxtServer(
   {
     liveReload: args[0] === "--dev" ? true : false,
     onInit: (c) => {
-
-    } // Functions executed at access time on all routes
+      console.log(
+        ` %c${c.req.method ? c.req.method : "Unknown"} ${c.req.path}`,
+        "color: #0FF000"
+      );
+    }, // Functions executed at access time on all routes
   }
 );
 
-server.fire()
+server.fire();

@@ -3,6 +3,7 @@ import {
   Handler,
   Hono,
   NotFoundHandler,
+  Next
 } from "https://deno.land/x/hono/mod.ts";
 import { serveStatic } from "../utils/serveStatic.ts";
 import { serve } from "https://deno.land/std/http/server.ts";
@@ -96,12 +97,16 @@ export class NaxtServer {
         } else {
           return {
             target: ParseRelativePathStatic(dir.relativePath),
-            module: (...args: unknown[]) =>
-              serveStatic({
+            module: (c: Context, next: Next) => {
+              if (this.onInit) {
+                this.onInit(c);
+              }
+              return serveStatic({
                 root: this.basePath,
                 // deno-lint-ignore ban-ts-comment
                 // @ts-ignore
-              })(...args),
+              })(c, next);
+            },
           };
         }
       })();
