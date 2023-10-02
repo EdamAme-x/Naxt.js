@@ -47,7 +47,6 @@ export class NaxtServer {
 
     this.hono = new Hono();
 
-    this.routing();
   }
 
   async routing() {
@@ -168,6 +167,8 @@ export class NaxtServer {
     if (this.onLaunch) {
       this.onLaunch();
     }
+
+    this.routing();
 
     serve(this.hono.fetch, { port: this.port });
     console.clear();
