@@ -15,6 +15,9 @@ const server = new NaxtServer(
         );
       }
     }, // Functions executed at access time on all routes
+    onLaunch: () => {
+      
+    } // Functions executed at server launch
   }
 );
 

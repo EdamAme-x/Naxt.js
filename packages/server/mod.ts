@@ -26,6 +26,7 @@ export class NaxtServer {
   token? = 0; // LiveReload
   liveReload? = false;
   onInit?: (c: Context) => unknown;
+  onLaunch?: () => unknown;
 
   constructor(
     basePath: string,
@@ -33,13 +34,15 @@ export class NaxtServer {
     config?: {
       liveReload: boolean;
       onInit?: (c: Context) => unknown;
+      onLaunch?: () => unknown;
     }
   ) {
     this.basePath = basePath;
     this.port = port ? port : 8080;
     if (config) {
       this.liveReload = config.liveReload ? true : false;
-      this.onInit = config.onInit;
+      this.onInit = config.onInit ?? (() => {});
+      this.onLaunch = config.onLaunch ?? (() => {});
     }
 
     this.hono = new Hono();
@@ -160,6 +163,10 @@ export class NaxtServer {
         if (!this.token) return c.text("0", 500);
         return c.text(this.token.toString(), 200);
       });
+    }
+
+    if (this.onLaunch) {
+      this.onLaunch();
     }
 
     serve(this.hono.fetch, { port: this.port });
