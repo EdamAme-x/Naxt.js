@@ -9,6 +9,7 @@ export function ParseRelativePath(path: string): string {
   }
 
   path = path.replaceAll(/\/@/g, "/:");
+  path = path.replaceAll(/\/_all/g, "/*");
   path = path.replaceAll(/\/^/g, "/");
 
   path = path.replace(/\/index$/, "/");
