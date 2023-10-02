@@ -49,4 +49,10 @@ However, some of them are unique. Please refer to the documentation.
 
 URLpattern(as /user/@id as /user/:id) can also be used for routing.
 
+#### Examples
+/user/:id => /user/@id(.js)
+/user/* => /user/_all(.ts)
+/*/profile => /_all/profile(.jsx)
+/:id/profile => /_all/profile(.tsx)
+
 Normal files (photos, etc.) will be routed as usual.
