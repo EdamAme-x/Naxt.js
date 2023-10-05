@@ -56,3 +56,5 @@ URLpattern(as /user/@id as /user/:id) can also be used for routing.
 /:id/profile => /_all/profile(.tsx)
 
 Normal files (photos, etc.) will be routed as usual.
+
+Please keep contributing! 
