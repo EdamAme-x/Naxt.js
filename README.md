@@ -6,6 +6,8 @@ We are aiming for a **Japanese-made** framework.
 Useful for building APIs, etc.
 It is also possible to build an entire site.
 
+**Server startup takes only 0.01 seconds.**
+
 <img src="/assets/icon.png" alt="naxt-js-logo" width="200" />
 
 ### Ultra-fast framework 🔥
