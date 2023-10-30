@@ -14,6 +14,8 @@ It is also possible to build an entire site.
 
 on 🦕 Deno and ... coming soon.
 
+(as RSC)
+
 ## Installation
 `deno run -A https://raw.githubusercontent.com/EdamAme-x/Naxt.js/main/assets/install.ts my-app`
 
@@ -57,6 +59,7 @@ URLpattern(as /user/@id as /user/:id) can also be used for routing.
 #### Examples
 /user/:id => /user/@id(.js)
 /user/* => /user/_all(.ts)
+
 /*/profile => /_all/profile(.jsx)
 /:id/profile => /_all/profile(.tsx)
 
