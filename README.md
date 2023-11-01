@@ -87,6 +87,14 @@ export default function Index(context) {
 }
 ```
 
+#### /api/hello.js
+export default function Hello(context) {
+  return context.html("<h1>Welcome to Naxt.js 🔥</h1>")
+}
+```
+
+```
+
 The arguments are the same as for Hono.
 However, some of them are unique. Please refer to the documentation.
 
