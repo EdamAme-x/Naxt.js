@@ -1,13 +1,20 @@
 # 🔥 Naxt.js
 
-_Naxt.js_ is a framework based on [Hono](https://github.com/honojs/hono)🔥.
+_Naxt.js_ is a framework based on [Hono](https://github.com/honojs/hono)🔥 and [HTMX](https://htmx.org) </>.  
 We are aiming for a **Japanese-made** framework.
+
+Useful for building APIs, etc.
+It is also possible to build an entire site.
+
+**Server startup takes only 0.01 seconds.**
 
 <img src="/assets/icon.png" alt="naxt-js-logo" width="200" />
 
 ### Ultra-fast framework 🔥
 
 on 🦕 Deno and ... coming soon.
+
+(as RSC)
 
 ## Installation
 `deno run -A https://raw.githubusercontent.com/EdamAme-x/Naxt.js/main/assets/install.ts my-app`
@@ -55,7 +62,10 @@ URLpattern(as /user/@id as /user/:id) can also be used for routing.
 #### Examples
 /user/:id => /user/@id(.js)
 /user/* => /user/_all(.ts)
+
 /*/profile => /_all/profile(.jsx)
 /:id/profile => /_all/profile(.tsx)
 
 Normal files (photos, etc.) will be routed as usual.
+
+Please keep contributing! 
