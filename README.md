@@ -54,6 +54,39 @@ export default function Index({ context, connInfo }) {
 }
 ```
 
+### Using HTMX
+
+```js
+import { html } from "$naxtjs/helper/html/mod.ts";
+import { LiveReload } from "$naxtjs/helper/live/mod.ts";
+
+export default function Index(context) {
+
+    const page = html`
+    <html>
+    <head lang="ja">
+        <title>Naxt.js Initial Page 🔥</title>
+        <meta charset="UTF-8">
+        <link rel="icon" href="/static/favicon.png" type="image/x-icon">
+        <link rel="stylesheet" href="/static/index.css">
+        <script src="/static/client.js"></script>
+    </head>
+    <body>
+        <img src="/static/favicon.png" alt="icon" width="240" />
+        <h1 hx-get="/api/hello" hx-swap="outerHTML" hx-trigger="load"></h1>
+        <p>Edit <code>routes/index.js</code> to get started!</p>
+        <h2>Ultrafast Fullstack Framework on Hono 🔥</h2>
+        ${new Date()}
+        ${LiveReload()}
+    </body>
+    </html>
+    `;
+
+    return context.htmx(page); // context.htmx()
+
+}
+```
+
 The arguments are the same as for Hono.
 However, some of them are unique. Please refer to the documentation.
 
