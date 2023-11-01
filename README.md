@@ -20,10 +20,12 @@ on 🦕 Deno and ... coming soon.
 
 ```markdown
 |-routes
+|-@id
+  |-- profile.jsx
 |-- index.js
 |-- about.ts
 |-api
-|-- firebase.ts
+  |-- firebase.ts
 ```
 
 In the above file structure...
@@ -31,6 +33,7 @@ In the above file structure...
 `Req: /index => index.js`
 `Req: /about => about.ts`
 `Req: /api/firebase => firebase.ts`
+`Req: /:id/profile => profile.jsx`
 
 File extensions are prioritized and routed in the following order: `tsx` => `jsx` => `ts` => `js`
 

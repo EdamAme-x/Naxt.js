@@ -13,6 +13,7 @@ import { ParseRelativePathStatic } from "./../utils/parseRelativePathStatic.ts";
 import { Context } from "https://deno.land/x/hono@v3.7.2/context.ts";
 import { Page, PageClassifier } from "../types/page.ts";
 import { importModuleIfSupported } from "./IfModule.ts";
+import { modifContext, CustomContext } from './../utils/modifContext.ts';
 
 export class NaxtServer {
   basePath: string;
@@ -61,6 +62,7 @@ export class NaxtServer {
       const routePromise = (async () => {
         const module = await importModuleIfSupported(dir.fullPath);
         if (module) {
+
           const target = ParseRelativePath(dir.relativePath);
           const routeModule = (() => {
             if (target === "/_onError") {
@@ -68,6 +70,8 @@ export class NaxtServer {
                 if (this.onInit) {
                   this.onInit(c);
                 }
+
+                c = modifContext(c as CustomContext);
 
                 try {
                   c.header("X-Powered-By", "Hono");
@@ -82,6 +86,8 @@ export class NaxtServer {
               if (this.onInit) {
                 this.onInit(c);
               }
+
+              c = modifContext(c as CustomContext);
 
               try {
                 c.header("X-Powered-By", "Hono");
