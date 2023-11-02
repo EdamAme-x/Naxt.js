@@ -102,3 +102,26 @@ URLpattern(as /user/@id as /user/:id) can also be used for routing.
 Normal files (photos, etc.) will be routed as usual.
 
 Please keep contributing! 
+
+#### Helpers
+
+```tsx
+import { [HelperName] } from '$naxtjs/helper/mod.ts';
+// renderJSX : render JSX
+// html, css, js : minifyCode
+// LiveReload : LiveReloadModule (You can put it in a production environment.)
+
+// examples
+const minifyHTML = html`
+<p class="a" >
+
+hello</p>
+`; // as css, js
+
+console.log(minifyHTML); 
+// <p class="a">hello</p>
+
+const jsx = renderJSX(<p class="a">
+  hello {Date.now()}
+</p>)
+```
