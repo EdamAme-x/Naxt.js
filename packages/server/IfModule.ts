@@ -12,9 +12,11 @@ export async function importModuleIfSupported(path: string) {
       const module = await import(path);
       return module;
     } catch (e: string | unknown) {
-      throw Error(
+      new Error(
         `\n\n 🌊: There is a problem with the exported function. \n\n ${e}`
       );
+
+      return null;
     }
   }
   return null;
