@@ -1,5 +1,7 @@
 # 🔥 Naxt.js
 
+## Warn: It is currently under development.
+
 _Naxt.js_ is a framework based on [Hono](https://github.com/honojs/hono)🔥 and [HTMX](https://htmx.org) </>.  
 We are aiming for a **Japanese-made** framework.
 
