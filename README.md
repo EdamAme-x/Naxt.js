@@ -57,8 +57,7 @@ export default function Index({ context, connInfo }) {
 ### Using HTMX
 
 ```js
-import { html } from "$naxtjs/helper/html/mod.ts";
-import { LiveReload } from "$naxtjs/helper/live/mod.ts";
+import { html, LiveReload  } from "$naxtjs/helper/mod.ts";
 
 export default function Index(context) {
 
